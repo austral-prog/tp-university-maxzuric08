@@ -90,7 +90,7 @@ class Student extends App{
             list_courses.add(Subject);}
     }
     public String getCourses() {
-        String archivoCSV = "solution.csv";
+        String archivoCSV = "src/main/resources/solution.csv";
 
         // Datos a escribir
         String[] cabecera = {"Student_Name","Course_Count"};
@@ -100,6 +100,7 @@ class Student extends App{
             Integer courses_amount=entry.getValue().size();
             student_data.add(new String[]{entry.getKey(),courses_amount.toString()});
             datos = AddListaADatos(datos,student_data);
+            Arrays.sort(datos, Comparator.comparing(a -> a[0]));
             student_data.add(new String[]{entry.getKey(),courses_amount.toString()});
         }
 
