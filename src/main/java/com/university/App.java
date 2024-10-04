@@ -101,7 +101,6 @@ class Student extends App{
             student_data.add(new String[]{entry.getKey(),courses_amount.toString()});
             datos = AddListaADatos(datos,student_data);
             Arrays.sort(datos, Comparator.comparing(a -> a[0]));
-            student_data.add(new String[]{entry.getKey(),courses_amount.toString()});
         }
 
 
