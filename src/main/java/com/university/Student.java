@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class Student {
+public class Student implements Generate_Csv {
         private String Student_Name;
         private String Subject;
         private String Student_Email;
@@ -18,20 +18,6 @@ public class Student {
         public String getStudent_Name() {
             return Student_Name;
         }
-    public static String[][] AddListaADatos(String[][] datosExistentes, List<String[]> nuevaLista) {
-        // Crear un nuevo array con el tamaño adecuado
-        String[][] nuevoArray = new String[datosExistentes.length + nuevaLista.size()][];
-
-        // Copiar los datos existentes al nuevo array
-        System.arraycopy(datosExistentes, 0, nuevoArray, 0, datosExistentes.length);
-
-        // Copiar los nuevos datos al nuevo array
-        for (int i = 0; i < nuevaLista.size(); i++) {
-            nuevoArray[datosExistentes.length + i] = nuevaLista.get(i);
-        }
-
-        return nuevoArray;
-    }
 
         public void add_Subject() {
             if (!courses.containsKey(Student_Name)) {
@@ -43,25 +29,24 @@ public class Student {
                 List<String> list_courses = courses.get(Student_Name);
                 list_courses.add(Subject);}
         }
-        public String getCourses() {
+        public String Write_Csv() {
             String archivoCSV = "src/main/resources/solution.csv";
-
-            // Datos a escribir
             String[] cabecera = {"Student_Name","Course_Count"};
-            String[][] datos = {};
+            List<String[]> datos = new ArrayList<>();
             for (Map.Entry<String, List<String>> entry : courses.entrySet()){
-                List<String[]> student_data=new ArrayList<>();
                 Integer courses_amount=entry.getValue().size();
-                student_data.add(new String[]{entry.getKey(),courses_amount.toString()});
-                datos = AddListaADatos(datos,student_data);
-                Arrays.sort(datos, Comparator.comparing(a -> a[0]));}
+                datos.add(new String[]{entry.getKey(), courses_amount.toString()});
+            }
+            String[][] datosArray = datos.toArray(new String[0][]);
+            Arrays.sort(datosArray, Comparator.comparing(a -> a[0]));
+
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivoCSV))) {
                 // Escribir la cabecera
                 writer.write(String.join(",", cabecera));
                 writer.newLine();
 
                 // Escribir los datos
-                for (String[] fila : datos) {
+                for (String[] fila : datosArray) {
                     writer.write(String.join(",", fila));
                     writer.newLine();
                 }
