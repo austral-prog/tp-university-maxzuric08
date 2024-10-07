@@ -24,7 +24,7 @@ public class Grades implements Generate_Csv{
         this.Grade = Grade;
     }
     public void add_Grade() {
-        List<String> new_data = new ArrayList<>(List.of(Subject,Evaluation_Name,Student_Name));
+        List<String> new_data = new ArrayList<>(List.of(Evaluation_Type,Subject,Evaluation_Name,Student_Name));
         if (!grades_data.containsKey(new_data)) {
             List<String> list_courses = new ArrayList<String>();
             list_courses.add(Grade);
@@ -40,8 +40,8 @@ public class Grades implements Generate_Csv{
             List<String> exc_notes=entry.getValue();
             Double final_grade = 0.0;
             for (String ind_notes : exc_notes){final_grade+=Double.parseDouble(ind_notes);}
-            String data_in_string = String.join(",",entry.getKey());
-            datos.add(new String[]{data_in_string, final_grade.toString()});}
+            String data_in_string = String.join(",",entry.getKey().subList(1,entry.getKey().size()));
+            datos.add(new String[]{data_in_string, Double.toString(final_grade/exc_notes.size())});}
         String[][] datosArray = datos.toArray(new String[0][]);
         Arrays.sort(datosArray, Comparator.comparing(a -> a[0]));
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivoCSV))) {
