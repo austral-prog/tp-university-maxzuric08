@@ -1,4 +1,4 @@
-package com.university;
+package com.university.tools;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

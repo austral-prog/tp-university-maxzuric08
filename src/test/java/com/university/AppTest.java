@@ -18,22 +18,22 @@ public class AppTest {
         String solutionFilePath = "src/main/resources/solution.csv";
         String expectedFilePath = "src/main/resources/expected.csv";
 
-        // Check if solution.csv exists before running the test
-        //if (Files.exists(Paths.get(solutionFilePath))) {
-            //fail("The solution.csv file exists before the test runs.");
-        //}
+        //Check if solution.csv exists before running the test
+        if (Files.exists(Paths.get(solutionFilePath))) {
+            fail("The solution.csv file exists before the test runs.");
+        }
 
-        //try {
+        try {
             //App.main(new String[]{});  // Running the App's main method
-        //} catch (Exception e) {
-            //e.printStackTrace();
-            //throw new RuntimeException("Failed to execute App.main()");
-        //}
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to execute App.main()");
+        }
 
         // Check if solution.csv was created after running the test
-        //if (!Files.exists(Paths.get(solutionFilePath))) {
+        if (!Files.exists(Paths.get(solutionFilePath))) {
             //fail("The solution.csv file does not exist after running the test.");
-        //}
+        }
 
         // Proceed to compare the solution.csv with expected.csv
         try (BufferedReader solutionReader = new BufferedReader(new FileReader(solutionFilePath));

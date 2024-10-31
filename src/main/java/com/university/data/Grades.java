@@ -1,4 +1,6 @@
-package com.university;
+package com.university.data;
+
+import com.university.tools.Generate_Csv;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -6,7 +8,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class Grades implements Generate_Csv{
+public class Grades implements Generate_Csv {
     private String Student_Name;
     private String Subject;
     private String Evaluation_Type;
