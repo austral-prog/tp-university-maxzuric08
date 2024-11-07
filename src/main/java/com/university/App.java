@@ -1,10 +1,13 @@
 package com.university;
-import com.university.data.Grades;
-import com.university.data.Student;
-import com.university.data.Subjects;
+import com.university.data.grades.Grades;
+import com.university.data.student.Student;
+import com.university.data.student.StudentSubjects;
 import com.university.data.University;
-import com.university.tools.CSV;
-import com.university.tools.Student_Csv;
+import com.university.csv.CSV;
+import com.university.csv.Grade_Csv;
+import com.university.data.grades.Sort_grades;
+import com.university.csv.Student_Csv;
+import com.university.data.student.Subject;
 
 import java.util.List;
 import java.util.Map;
@@ -12,26 +15,23 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
-        CSV new_csv = new CSV("src/main/resources/input.csv");
-        List<List<String>> student_data = new_csv.ReadCsv();
+        Student_Csv new_studentCsv = new Student_Csv("src/main/resources/input.csv");
+        List<List<String>> student_data = new_studentCsv.ReadCsv();
         University university_data = new University();
-        Subjects new_subjects = new Subjects();
-        new_subjects.add_Subject(student_data);
-        List<Student> student_list = university_data.get_student_list();
-        Map<List<String>, List<String>> student_subjects = new_subjects.get_subjetcs();
-        university_data.add_student(student_subjects);
-        Student_Csv new_studentCsv = new Student_Csv();
-        new_studentCsv.Write_Csv(student_list);
-
-
-
-        //Student new_student = new Student("Olivia Red", "Political Science", "olivia.red@student.org");
-        //new_student.Write_Csv();
-        //CSV new_csv1 = new CSV("src/main/resources/input_2.csv");
-        //List<List<String>> grades_data = new_csv1.ReadCsv();
-        //new_data.add_grades(grades_data);
-        //Grades new_grade = new Grades("Paul Beige", "English", "WRITTEN_EXAM", "Segundo Parcial", "Ej2", "7");
-        //new_grade.Write_Csv();
+        StudentSubjects new_subjects = new StudentSubjects();
+        new_subjects.order_info(student_data);
+        Map<String, List<Subject>> student_subjects = new_subjects.get_subjetcs();
+        university_data.add_studentsubjects(student_subjects);
+        Map<Student,List<Subject>> university_student_subject = university_data.get_studentSubject_list();
+        new_studentCsv.WriteCsv(university_student_subject);
+        Grade_Csv new_csv1 = new Grade_Csv("src/main/resources/input_2.csv");
+        List<List<String>> grades_data = new_csv1.ReadCsv();
+        Sort_grades new_grades_per_eval = new Sort_grades();
+        new_grades_per_eval.order_info(grades_data);
+        Map<List<String>, List<String>> student_grades = new_grades_per_eval.get_grades();
+        new_csv1.WriteCsv(student_grades);
+        university_data.add_grades(student_grades);
+        //CSV new_csv2 = new CSV("src/main/resources/input_3.csv");
     }}
 
 

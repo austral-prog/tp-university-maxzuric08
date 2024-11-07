@@ -1,12 +1,14 @@
-package com.university.tools;
+package com.university.csv;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
-public class CSV {
+public abstract class CSV<T,U>{
     private List<List<String >> ArchivoCsv = new ArrayList<>();
     private String Csv_toread;
     public CSV(String Csv_toread){
@@ -38,5 +40,6 @@ public class CSV {
         return ArchivoCsv;
 
     }
+    public abstract String WriteCsv(Map<T,List<U>> info);
 
 }

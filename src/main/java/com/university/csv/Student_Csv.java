@@ -1,20 +1,25 @@
-package com.university.tools;
+package com.university.csv;
 
-import com.university.data.Student;
+import com.university.data.student.Student;
+import com.university.data.student.Subject;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class Student_Csv{
-    public String Write_Csv(List<Student> student_data) {
+public class Student_Csv extends CSV<Student,Subject>{
+    public Student_Csv(String Csv_toread) {
+        super(Csv_toread);
+    }
+
+    public String WriteCsv(Map<Student,List<Subject>> student_data) {
         String archivoCSV = "src/main/resources/solution.csv";
         String[] cabecera = {"Student_Name","Course_Count"};
         List<String[]> datos = new ArrayList<>();
-        for (Student student : student_data){
-            Integer courses_amount=student.getSubjetc().size();
-            datos.add(new String[]{student.getStudent_Name(), courses_amount.toString()});
+        for (Map.Entry<Student, List<Subject>> entry : student_data.entrySet()){
+            Integer courses = entry.getValue().size();
+            datos.add(new String[]{entry.getKey().getStudent_Name(), courses.toString()});
         }
         String[][] datosArray = datos.toArray(new String[0][]);
         Arrays.sort(datosArray, Comparator.comparing(a -> a[0]));

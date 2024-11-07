@@ -24,7 +24,7 @@ public class AppTest {
         }
 
         try {
-            //App.main(new String[]{});  // Running the App's main method
+            App.main(new String[]{});  // Running the App's main method
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to execute App.main()");
@@ -32,7 +32,7 @@ public class AppTest {
 
         // Check if solution.csv was created after running the test
         if (!Files.exists(Paths.get(solutionFilePath))) {
-            //fail("The solution.csv file does not exist after running the test.");
+            fail("The solution.csv file does not exist after running the test.");
         }
 
         // Proceed to compare the solution.csv with expected.csv
